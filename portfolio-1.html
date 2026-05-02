@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unur | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e63329;
+    --black: #111;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --text-muted: #888;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 60px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #eee;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--black);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .resume-btn {
+    background: var(--red);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: opacity 0.2s !important;
+  }
+  .resume-btn:hover { opacity: 0.85; color: #fff !important; }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-content { flex: 1; max-width: 560px; }
+  .hero-greeting {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background: var(--red);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin-top: 4px;
+    line-height: 1.2;
+  }
+  .hero-title span { color: var(--red); }
+  .hero-location {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-weight: 400;
+  }
+  .hero-location strong { color: var(--red); font-weight: 600; }
+  .hero-desc {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.7;
+    max-width: 420px;
+  }
+  .hero-socials {
+    display: flex;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .social-icon {
+    width: 36px; height: 36px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--black);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .social-icon:hover { border-color: var(--red); color: var(--red); }
+  .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .avatar-wrap {
+    width: 280px; height: 280px;
+    background: var(--gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-emoji {
+    font-size: 8rem;
+    line-height: 1;
+    margin-top: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .deco-ring {
+    position: absolute;
+    width: 320px; height: 320px;
+    border: 2px dashed #e63329aa;
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 90px 60px; }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .section-title span { color: var(--red); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--white); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 14px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .skill-card {
+    border: 1.5px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 18px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .skill-card:hover {
+    border-color: var(--red);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(230,51,41,0.1);
+  }
+  .skill-card.highlight { background: var(--red); color: #fff; border-color: var(--red); }
+  .skill-icon { font-size: 1.8rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--gray); }
+  .about-inner {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .about-img {
+    width: 200px; height: 220px;
+    background: #e0e0e0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .about-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .about-text p {
+    font-size: 0.92rem;
+    color: #555;
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+  .about-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .tag {
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-card {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 20px 26px;
+    background: #fff;
+    position: relative;
+  }
+  .edu-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .edu-card h4 span { color: var(--red); }
+  .edu-card p {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 4px;
+  }
+  .stats {
+    display: flex;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .stat {
+    flex: 1;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--red);
+  }
+  .stat-label { font-size: 0.78rem; color: #888; margin-top: 4px; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--white); }
+  .project-item {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    max-width: 880px;
+    margin: 0 auto 60px;
+  }
+  .project-item:nth-child(even) { flex-direction: row-reverse; }
+  .project-img {
+    flex: 1;
+    min-height: 220px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+  }
+  .project-img.p1 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+  .project-img.p2 { background: #0a0a0a; }
+  .project-info { flex: 1; padding-top: 10px; }
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--red);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .view-btn:hover { gap: 10px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--gray); }
+  .contact-inner {
+    display: flex;
+    gap: 60px;
+    max-width: 860px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+  .contact-form { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--red); }
+  .contact-form textarea { height: 110px; }
+  .submit-btn {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+  .submit-btn:hover { opacity: 0.85; }
+  .contact-info { flex: 1; }
+  .contact-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .contact-info h3 span { color: var(--red); }
+  .contact-info p {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .contact-detail .icon { font-size: 1.1rem; }
+  .contact-socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 28px;
+    font-size: 0.82rem;
+    color: #aaa;
+    border-top: 1px solid #eee;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 18px; }
+    section { padding: 70px 24px; }
+    #home { padding: 100px 24px 60px; flex-direction: column-reverse; gap: 40px; }
+    .about-inner { flex-direction: column; }
+    .contact-inner { flex-direction: column; }
+    .project-item, .project-item:nth-child(even) { flex-direction: column; }
+    .stats { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">UNUR</div>
+  <ul class="nav-links">
+    <li><a href="#home">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="resume-btn">Resume ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-content fade-in">
+    <p class="hero-greeting">Hello, I am</p>
+    <div class="hero-name">Unur<span class="cursor"></span></div>
+    <div class="hero-title"><span>Website</span> &amp; Game Developer</div>
+    <p class="hero-location">Based In <strong>Mongolia</strong></p>
+    <p class="hero-desc">
+      Passionate about technology, I specialize in Web Development and Game Development.
+      I build modern, high-performance applications and continuously push my skills to create impactful digital experiences.
+    </p>
+    <div class="hero-socials">
+      <a class="social-icon" href="mailto:kakumiki9@gmail.com" title="Email">✉</a>
+      <a class="social-icon" href="#" title="GitHub">⌥</a>
+      <a class="social-icon" href="#" title="LinkedIn">in</a>
+    </div>
+  </div>
+  <div class="hero-image fade-in">
+    <div class="deco-ring"></div>
+    <div class="avatar-wrap">
+      <div class="avatar-emoji">🧑‍💻</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="section-title fade-in">My <span>Skills</span></h2>
+  <div class="skills-grid fade-in">
+    <div class="skill-card"><div class="skill-icon">🟨</div>JavaScript</div>
+    <div class="skill-card"><div class="skill-icon">⚛️</div>React</div>
+    <div class="skill-card"><div class="skill-icon">🟢</div>Node.js</div>
+    <div class="skill-card"><div class="skill-icon">🐍</div>Python</div>
+    <div class="skill-card highlight"><div class="skill-icon">🎮</div>Unity</div>
+    <div class="skill-card"><div class="skill-icon">🗄️</div>MongoDB</div>
+    <div class="skill-card"><div class="skill-icon">🌐</div>HTML</div>
+    <div class="skill-card"><div class="skill-icon">🎨</div>CSS</div>
+    <div class="skill-card"><div class="skill-icon">🗃️</div>SQL</div>
+    <div class="skill-card"><div class="skill-icon">📊</div>Streamlit</div>
+    <div class="skill-card"><div class="skill-icon">📈</div>Plotly</div>
+    <div class="skill-card"><div class="skill-icon">🐙</div>Git</div>
+  </div>
+</section>
+
+<!-- ABOUT / EDUCATION -->
+<section id="about" style="background:var(--gray);">
+  <h2 class="section-title fade-in">About <span>Me</span></h2>
+  <div class="about-inner fade-in">
+    <div class="about-img">🧑‍💻</div>
+    <div class="about-text">
+      <h3>About <span style="color:var(--red)">Me</span></h3>
+      <p>I'm a Website and Game Developer based in Mongolia, passionate about building modern web applications and interactive game experiences.</p>
+      <p>I specialize in Full-Stack web development and Unity game development — enjoying clean, efficient, and scalable solutions with a strong eye for UX design.</p>
+      <p>So far, I've worked on multiple projects including financial dashboards, games, and portfolio sites, constantly exploring new technologies.</p>
+      <div class="about-tags">
+        <span class="tag">Fullstack</span>
+        <span class="tag">Game Dev</span>
+        <span class="tag">Problem Solving</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title fade-in" style="margin-top:60px;">My <span>Education</span></h2>
+  <div class="edu-card fade-in">
+    <h4>Website Developer at <span>U Cyber Academia</span></h4>
+    <p>Web Development Program — Building modern full-stack web applications</p>
+  </div>
+  <div class="stats fade-in">
+    <div class="stat">
+      <div class="stat-num">+5</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+1 Year</div>
+      <div class="stat-label">Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">Fullstack</div>
+      <div class="stat-label">Developer</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title fade-in">My <span>Projects</span></h2>
+
+  <div class="project-item fade-in">
+    <div class="project-img p1">📈</div>
+    <div class="project-info">
+      <div class="project-num">01</div>
+      <div class="project-name">Real-Time Stock &amp; Currency Dashboard</div>
+      <p class="project-desc">A dynamic financial web application that tracks global stocks, cryptocurrencies, and forex rates in real-time. Built with Python and Streamlit, featuring interactive Plotly charts, moving averages, and simple machine learning for trend prediction.</p>
+      <a href="https://fx-stock-ai-dkrkkhtwrucfnnecq3gz7p.streamlit.app/" target="_blank" rel="noopener" class="view-btn">View Project →</a>
+    </div>
+  </div>
+
+  <div class="project-item fade-in">
+    <div class="project-img p2">🐍</div>
+    <div class="project-info">
+      <div class="project-num">02</div>
+      <div class="project-name">Snake Game</div>
+      <p class="project-desc">A 2D neon lights snake game with smooth controls, glowing visuals, and increasing difficulty. Built for a visually striking arcade experience.</p>
+      <a href="https://unuruupro112.github.io/SNK-2/index.html" target="_blank" rel="noopener" class="view-btn">View Project →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title fade-in">Contact <span>Me</span></h2>
+  <div class="contact-inner fade-in">
+    <div class="contact-form">
+      <input type="text" placeholder="Your name">
+      <input type="email" placeholder="Email">
+      <input type="text" placeholder="Your website (optional)">
+      <textarea placeholder="How can I help?"></textarea>
+      <button class="submit-btn">Get In Touch</button>
+    </div>
+    <div class="contact-info">
+      <h3>Let's <span>talk</span></h3>
+      <p>I love building modern applications and pushing creativity to the next level. Let's collaborate and create something amazing together.</p>
+      <div class="contact-detail"><span class="icon">✉</span> kakumiki9@gmail.com</div>
+      <div class="contact-detail"><span class="icon">📞</span> 90851555</div>
+      <div class="contact-detail"><span class="icon">📞</span> 85668350</div>
+      <div class="contact-socials">
+        <a class="social-icon" href="mailto:kakumiki9@gmail.com">✉</a>
+        <a class="social-icon" href="#">in</a>
+        <a class="social-icon" href="#">𝕏</a>
+        <a class="social-icon" href="#">⌥</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Unur. All rights reserved.
+</footer>
+
+<script>
+  // Scroll-triggered fade in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Typewriter for name
+  const nameEl = document.querySelector('.hero-name');
+  const fullName = 'Unur';
+  let idx = 0;
+  nameEl.innerHTML = '<span class="cursor"></span>';
+  const typingInterval = setInterval(() => {
+    if (idx <= fullName.length) {
+      nameEl.innerHTML = fullName.slice(0, idx) + '<span class="cursor"></span>';
+      idx++;
+    } else {
+      clearInterval(typingInterval);
+    }
+  }, 130);
+</script>
+</body>
+</html>
